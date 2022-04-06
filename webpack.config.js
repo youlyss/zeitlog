@@ -54,7 +54,7 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = 3;
     })
-
+    .autoProvidejQuery()
     // enables Sass/SCSS support
     //.enableSassLoader()
 
@@ -69,7 +69,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+
 ;
 
 module.exports = Encore.getWebpackConfig();
