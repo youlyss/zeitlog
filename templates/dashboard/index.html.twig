@@ -1,20 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}DashboardController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<section>
+<div class="container">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="row">
+        <div class="col-md-12 center"> <h1>{{ title }}</h1></div>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/mug/projectsPlus/Zeitlog/src/Controller/DashboardController.php'|file_link(0) }}">src/Controller/DashboardController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/mug/projectsPlus/Zeitlog/templates/dashboard/index.html.twig'|file_link(0) }}">templates/dashboard/index.html.twig</a></code></li>
-    </ul>
+
+    <div class="row">
+        <div class="col-md-3"><h4>start</h4></div>
+        <div class="col-md-3"><h4>End</h4></div>
+        <div class="col-md-3"><h4>Edit</h4></div>
+        <div class="col-md-3"><h4>Delete</h4></div>
+    </div>
+
+    {% for worktime in worktimes %}
+        <div class="row">
+            <div class="col-md-3">{{worktime.startTime|date("Y-m-d h:i:s") }} </div>
+            <div class="col-md-3">{{ worktime.endTime|date("Y-m-d h:i:s") }}</div>
+            <div class="col-md-3"><a class="btn btn-outline-success" href="/dashboard/edit/{{ worktime.id }}">edit</a></div>
+            <div class="col-md-3"><a class="btn btn-outline-danger" href="/dashboard/delete/{{ worktime.id }}">delete</a></div>
+
+        </div>
+    {% endfor %}
+
+
+
+
+
 </div>
+</section>
 {% endblock %}

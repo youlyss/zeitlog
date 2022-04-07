@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 align">
+                    <h1>{{ title }}</h1>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <input type="text" id="txtstart_time" class="form-control" value="{{worktime.user.email }}" />
+                </div>
+            </div>
+            <form id="timeForm" name="timeForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-default width_button" id="start_time">Start</button>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="txtstart_time" class="form-control" value="{{worktime.startTime|date("Y-m-d h:i:s") }}" />
+                    </div>
+                </div>
+
+                <div class="row rowMargin">
+                    <div class="col-md-6">
+                        <button class="btn btn-default"  id="end_time">End</button>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="txtend_time" class="form-control" value="{{ worktime.endTime|date("Y-m-d h:i:s") }}"/>
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="col-md-12 width_button">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 align">
+                        <div class="message" id="message"></div>
+                    </div>
+                </div>
+
+            </form>
+            <div class="row center">
+                <div class="col-md-12"><a class="btn btn-outline-primary" href="/dashboard">back</a> </div>
+            </div>
+
+        </div>
+
+    </section>
+{% endblock %}

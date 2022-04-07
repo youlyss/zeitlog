@@ -27,6 +27,29 @@ class Worktime
      */
     private $endTime;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="worktimes")
+     */
+    private $user;
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
+
+
     public function getId(): ?int
     {
         return $this->id;

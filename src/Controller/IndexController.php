@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 
+use App\Entity\Worktime;
 use App\Form\WorktimeType;
 use App\Repository\WorktimeRepository;
 use App\Service\FormHandler;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
-    private $worktimeRepository;
-    public function __construct(WorktimeRepository $worktimeRepository)
+
+    private $manager;
+    public function __construct(WorktimeRepository $worktimeRepository, EntityManagerInterface $manager)
     {
         $this->worktimeRepository = $worktimeRepository;
+        $this->manager = $manager;
+
     }
 
     /**
@@ -31,42 +37,37 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/time", name="add_time")
+     * @Route("/", name="add_time")
      */
     public function form():Response{
-        return $this->render('index/form.html.twig');
+        $message = "Gib den Start ein";
+        return $this->render('index/form.html.twig',['title'=>'Worktime',  'message' =>$message,]);
     }
+
+
+
 
     /**
-     * @Route("/save")
+     * @Route("/savedata")
      */
-    public function saveFormdata(Request $request, FormHandler $formHandler):Response{
-        $data = $request->request->all();
+    public function saveData(Request $request):Response
+    {
+         $starttime = $request->get('start_time');
+         $endtime = $request->get('end_time');
+         $worktime = new Worktime();
+         $worktime
+             ->setStartTime(new DateTime($starttime))
+             ->setEndTime(new DateTime($endtime));
+         $this->manager->persist($worktime);
+         $this->manager->flush();
+         $message = "Starttime saved";
 
-        $this->senderNumber = $data["start_time"];
-        $this->senderMessage = $data["end_time"];
-
-        $form = $this->createForm(WorktimeType::class, new WorktimeType());
-        $form->submit($data);
-        if (false === $form->isValid()) {
-            $errors = $formHandler->getErrorsFromForm($form);
-            return new JsonResponse(
-                [
-                    'message' => 'invalid Data',
-                    'errors' => $errors
-                ],
-                JsonResponse::HTTP_BAD_REQUEST
-            );
-        }
-        $this->worktimeRepository->persist($form->getData());
-        $this->worktimeRepository->flush();
-        $message = "";
-        $messageNotice = "Vielen Dank für Ihre Nachricht. Sie erhalten eine Empfangsbestätigung per E-Mail";
-
-        return $this->render('index/form.html.twig', [
-            'title' => 'Add to ',
-            'message' =>$message,
-            'messageNotice'=>$messageNotice,
+         return $this->render('index/form.html.twig', [
+            'title' => 'Work',
+            'message' =>$message
         ]);
+
+
     }
 }
+

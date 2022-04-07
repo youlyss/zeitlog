@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
     <section>
     <div class="container">
         <div class="row">
             <div class="col-md-12 align">
-                <h1>Enter the time</h1>
+                <h1>{{ title }}</h1>
             </div>
 
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-default width_button" id="start_time">Freelancer</button>
+            </div>
+            <div class="col-md-6">
+                <input type="text" id="email" class="form-control" value="{{ app.session.get('email') }}" />
+            </div>
         </div>
         <form id="timeForm" name="timeForm">
             <div class="row">
@@ -34,8 +42,14 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12 align">
+                    <div class="message" id="message"></div>
+                </div>
+            </div>
 
         </form>
+
     </div>
     </section>
 {% endblock %}
