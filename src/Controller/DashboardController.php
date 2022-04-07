@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use App\Repository\WorktimeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,23 +31,19 @@ class DashboardController extends AbstractController
      * @Route("/dashboard/edit/{id}", methods={"GET"})
      */
     public function update($id):Response{
-
         $message = "Gib den Start ein";
-        $worktime = $this->worktimeRepository->find($id);
-        dd($worktime);
+        $worktime = $this->worktimeRepository->findUserWorktime($id);
+        //dd($worktime);
         return $this->render('index/edit.html.twig',['title'=>'Edit a worktime', 'worktime'=>$worktime, 'message' =>$message,]);
-
     }
 
     /**
      * @Route("/dashboard/delete/{id}", methods={"GET"})
      */
     public function delete($id):Response{
-
         $message = "Gib den Start ein";
         $worktime = $this->worktimeRepository->find($id);
         $this->worktimeRepository->remove($worktime);
         return $this->redirectToRoute("app_dashboard");
-
     }
 }

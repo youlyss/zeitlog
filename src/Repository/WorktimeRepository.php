@@ -45,32 +45,19 @@ class WorktimeRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Worktime[] Returns an array of Worktime objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('w.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Worktime
+
+    public function findUserWorktime($id)
     {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
+        $query = $this->createQueryBuilder('wk')
+            ->select('wk.id, wk.startTime, wk.endTime, u.email')
+            ->innerJoin( 'App\Entity\User', 'u', 'WITH', 'wk.user = u.id')
+            ->where('wk.id = :id')
+            ->setParameter('id',$id)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
+
+        return $query;
     }
-    */
+
 }

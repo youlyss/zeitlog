@@ -41,11 +41,13 @@ class Worktime
     }
 
     /**
-     * @param mixed $user
+     * @param User $user
+     * @return $this
      */
-    public function setUser($user): void
+    public function setUser(User $user): self
     {
         $this->user = $user;
+        return $this;
     }
 
 

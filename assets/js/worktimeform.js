@@ -3,6 +3,7 @@ $("#timeForm").submit(function(e){
         var formData = {
             'start_time': $('#txtstart_time').val(),
             'end_time':$('#txtend_time').val(),
+            'user_id': $('#user_id').val()
         };
         $.ajax({
         type: "POST",

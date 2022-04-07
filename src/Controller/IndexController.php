@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
 use App\Entity\Worktime;
 use App\Form\WorktimeType;
+use App\Repository\UserRepository;
 use App\Repository\WorktimeRepository;
 use App\Service\FormHandler;
 use DateTime;
@@ -12,36 +14,34 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class IndexController extends AbstractController
 {
 
     private $manager;
-    public function __construct(WorktimeRepository $worktimeRepository, EntityManagerInterface $manager)
+    public function __construct(WorktimeRepository $worktimeRepository, UserRepository $userRepository,  EntityManagerInterface $manager, RequestStack $requestStack)
     {
         $this->worktimeRepository = $worktimeRepository;
+        $this->userRepository = $userRepository;
         $this->manager = $manager;
+        $this->session = $requestStack->getSession();
 
-    }
-
-    /**
-     * @Route("/index", name="app_index")
-     */
-    public function index(): Response
-    {
-        return $this->render('index/index.html.twig', [
-            'controller_name' => 'IndexController',
-        ]);
     }
 
     /**
      * @Route("/", name="add_time")
      */
-    public function form():Response{
-        $message = "Gib den Start ein";
-        return $this->render('index/form.html.twig',['title'=>'Worktime',  'message' =>$message,]);
+    public function form():Response
+    {
+        if ($this->getUser()) {
+            $message = "Gib den Start ein";
+            return $this->render('index/form.html.twig',['title'=>'Worktime',  'message' =>$message,]);
+        }
+        return $this->redirectToRoute('app_login');
     }
 
 
@@ -54,12 +54,17 @@ class IndexController extends AbstractController
     {
          $starttime = $request->get('start_time');
          $endtime = $request->get('end_time');
-         $worktime = new Worktime();
-         $worktime
-             ->setStartTime(new DateTime($starttime))
-             ->setEndTime(new DateTime($endtime));
-         $this->manager->persist($worktime);
-         $this->manager->flush();
+         $userId = $request->get('user_id');
+         $user = $this->userRepository->find($userId);
+         if ($user instanceof User) {
+             $worktime = new Worktime();
+             $worktime
+                 ->setStartTime(new DateTime($starttime))
+                 ->setEndTime(new DateTime($endtime))
+                 ->setUser($user);
+             $this->manager->persist($worktime);
+             $this->manager->flush();
+         }
          $message = "Starttime saved";
 
          return $this->render('index/form.html.twig', [
