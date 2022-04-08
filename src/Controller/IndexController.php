@@ -44,9 +44,6 @@ class IndexController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-
-
-
     /**
      * @Route("/savedata")
      */
@@ -55,16 +52,22 @@ class IndexController extends AbstractController
          $starttime = $request->get('start_time');
          $endtime = $request->get('end_time');
          $userId = $request->get('user_id');
+         $worktimeId = $request->get('worktime_id');
+
+
          $user = $this->userRepository->find($userId);
-         if ($user instanceof User) {
+         if ($worktimeId!= null) {
+             $worktime = $this->worktimeRepository->find($worktimeId);
+         }else {
              $worktime = new Worktime();
+         }
              $worktime
                  ->setStartTime(new DateTime($starttime))
                  ->setEndTime(new DateTime($endtime))
                  ->setUser($user);
              $this->manager->persist($worktime);
              $this->manager->flush();
-         }
+
          $message = "Starttime saved";
 
          return $this->render('index/form.html.twig', [

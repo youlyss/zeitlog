@@ -46,16 +46,41 @@ class WorktimeRepository extends ServiceEntityRepository
     }
 
 
+    public function findAllUsersWorktimes()
+    {
+        $query = $this->createQueryBuilder('wk')
+            ->select('wk,fruser.email,fruser.id')
+            ->innerJoin( 'App\Entity\User', 'fruser', 'WITH', 'fruser.id = wk.user')
+            ->getQuery()
+            ->getResult();
+
+        return $query;
+    }
+
 
     public function findUserWorktime($id)
     {
         $query = $this->createQueryBuilder('wk')
-            ->select('wk.id, wk.startTime, wk.endTime, u.email')
+            ->select('wk, u.email, u.id')
             ->innerJoin( 'App\Entity\User', 'u', 'WITH', 'wk.user = u.id')
             ->where('wk.id = :id')
             ->setParameter('id',$id)
             ->getQuery()
             ->getOneOrNullResult();
+
+        return $query;
+    }
+
+
+    public function findWorktimesByUser($id)
+    {
+        $query = $this->createQueryBuilder('wk')
+            ->select('wk.id, wk.startTime, wk.endTime, u.email')
+            ->innerJoin( 'App\Entity\User', 'u', 'WITH', 'wk.user = u.id')
+            ->where('u.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getResult();
 
         return $query;
     }

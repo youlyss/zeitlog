@@ -12,9 +12,19 @@
 
             </div>
             <div class="row">
+                <div class="col-md-12 center">
+                    <input type="text" id="user_id" name="user_id" class="form-control" value={{ worktime.id }}  />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 center">
+                    <input type="text" id="worktime_id" name="worktime_id" class="form-control" value={{ worktime.0.id }}  />
+                </div>
+            </div>
+            <div class="row">
 
                 <div class="col-md-12">
-                    <input type="text" id="txtstart_time" class="form-control" value="{{worktime.email }}" />
+                    <input type="text" id="email" class="form-control" value="{{worktime.email}}" />
                 </div>
             </div>
             <form id="timeForm" name="timeForm">
@@ -23,7 +33,7 @@
                         <button class="btn btn-default width_button" id="start_time">Start</button>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" id="txtstart_time" class="form-control" value="{{worktime.startTime|date("Y-m-d h:i:s") }}" />
+                        <input type="text" id="txtstart_time" class="form-control" value="{{worktime.0.startTime|date("Y-m-d h:i:s") }}" />
                     </div>
                 </div>
 
@@ -32,7 +42,7 @@
                         <button class="btn btn-default"  id="end_time">End</button>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" id="txtend_time" class="form-control" value="{{ worktime.endTime|date("Y-m-d h:i:s") }}"/>
+                        <input type="text" id="txtend_time" class="form-control" value="{{ worktime.0.endTime|date("Y-m-d h:i:s") }}"/>
                     </div>
                 </div>
                 <div class="row center">
