@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DashboardController!{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block body %}
 <section>
@@ -20,14 +20,21 @@
 
     {% for worktime in worktimes %}
         <div class="row">
-            <div class="col-md-2"><a href="/dashboard/user/{{worktime.id}}">{{worktime.email}} </a></div>
+
+            <div class="col-md-2"><a href="{{ path('app_edit_user', { id :worktime.id })}}">{{worktime.email}} </a></div>
             <div class="col-md-2">{{worktime.0.startTime|date("Y-m-d h:i:s") }} </div>
             <div class="col-md-2">{{ worktime.0.endTime|date("Y-m-d h:i:s") }}</div>
-            <div class="col-md-3 center"><a class="btn btn-outline-success btn-sm" href="/dashboard/edit/{{ worktime.0.id }}">edit</a></div>
-            <div class="col-md-3 center"><a class="btn btn-outline-danger btn-sm" href="/dashboard/delete/{{ worktime.0.id }}">delete</a></div>
+
+            <div class="col-md-3 center"><a class="btn btn-outline-success btn-sm" href="{{ path('app_edit_time', { id :worktime.0.id })}}">edit</a></div>
+            <div class="col-md-3 center"><a class="btn btn-outline-danger btn-sm" href="{{ path('app_delete_time', { id :worktime.0.id })}}">delete</a></div>
         </div>
     {% endfor %}
 
+    <div class="row">
+
+        <div class="col-md-6"><a class="btn btn-outline-success" href="{{ path('app_export')}}">export</a> </div>
+        <div class="col-md-6"><a class="btn btn-outline-primary" href="{{ path('app_dashboard')}}">back</a> </div>
+    </div>
 
 
 </div>

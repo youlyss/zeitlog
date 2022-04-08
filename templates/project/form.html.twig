@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProjectFormular{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Project</h1>
+            </div>
+        </div>
+        <hr/>
+        {{ form_start(projectForm) }}
+        <div class="row">
+
+                <div class="col-md-6">
+                    {{ form_label(projectForm.name) }}
+                </div>
+                 <div class="col-md-6">
+                    {{ form_widget(projectForm.name) }}
+                 </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_label(projectForm.description) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(projectForm.description) }}
+            </div>
+        </div>
+        <hr/>
+        <div class="row center">
+            <div class="col-md-12">
+                    <button type="submit" class="btn">Register</button>
+            </div>
+        </div>
+        {{ form_end(projectForm) }}
+
+        <div class="row center">
+            <div class="col-md-12">
+                <a class="btn btn-outline-danger btn-sm" href="{{ path('app_dashboard')}}">Haupt</a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -68,12 +68,12 @@ class IndexController extends AbstractController
              $this->manager->persist($worktime);
              $this->manager->flush();
 
-         $message = "Starttime saved";
 
-         return $this->render('index/form.html.twig', [
+        return $this->redirectToRoute('app_dashboard');
+        /* return $this->render('index/edit.html.twig', [
             'title' => 'Work',
             'message' =>$message
-        ]);
+        ]);*/
 
 
     }

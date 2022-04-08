@@ -24,28 +24,34 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <label>username</label>
-                </div>
-                <div class="col-md-6 center">
-                    <input type="text" id="username" class="form-control" value="{{ app.user.username }}" disabled/>
+
+                <div class="col-md-12 center">
+
+                    <span>{{ app.user.username }}</span>
                 </div>
             </div>
+            <hr/>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
+                    <p>Druck Start</p>
+                </div>
+                <div class="col-md-3">
                     <button class="btn btn-default width_button" id="start_time">Start</button>
                 </div>
                 <div class="col-md-6">
-                    <input type="text" id="txtstart_time" class="form-control"  />
+                    <input type="text" id="txtstart_time" class="form-control"  disabled/>
                 </div>
             </div>
 
             <div class="row rowMargin">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
+                        <p>Druck End</p>
+                    </div>
+                    <div class="col-md-3">
                         <button class="btn btn-default"  id="end_time">End</button>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" id="txtend_time" class="form-control" />
+                        <input type="text" id="txtend_time" class="form-control" disabled/>
                     </div>
                     </div>
             <div class="row center">
