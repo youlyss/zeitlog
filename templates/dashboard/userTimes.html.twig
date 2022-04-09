@@ -10,23 +10,23 @@
                 <div class="col-md-12 center"> <h1>{{ title }}</h1></div>
             </div>
             <div class="row center">
-                <div class="col-md-2"><h4>Username</h4></div>
+                <div class="col-md-4"><h4>Username</h4></div>
                 <div class="col-md-2"><h4>start</h4></div>
                 <div class="col-md-2"><h4>End</h4></div>
-                <div class="col-md-6"><h4>Arbeitzeit</h4></div>
+                <div class="col-md-4"><h4>Arbeitzeit</h4></div>
             </div>
             <hr>
 
             {% for worktime in worktimes %}
                 <div class="row">
-                    <div class="col-md-2">{{worktime.email }}</div>
+                    <div class="col-md-4">{{worktime.email }}</div>
                     <div class="col-md-2">{{worktime.startTime|date("Y-m-d h:i:s") }} </div>
                     <div class="col-md-2">{{ worktime.endTime|date("Y-m-d h:i:s") }}</div>
                     {% set difference = date(worktime.endTime).diff(date(worktime.startTime)) %}
                     {% set leftDays = difference.days %}
 
                     {% set interval = worktime.endTime.diff(worktime.startTime)|date("%mm %dd %h:%i:%ss") %}
-                    <div class="col-md-6 center">{{ interval }}</div>
+                    <div class="col-md-4 center">{{ interval }}</div>
 
                 </div>
             {% endfor %}

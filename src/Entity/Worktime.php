@@ -40,11 +40,8 @@ class Worktime
         return $this->user;
     }
 
-    /**
-     * @param User $user
-     * @return $this
-     */
-    public function setUser(User $user): self
+
+    public function setUser($user): self
     {
         $this->user = $user;
         return $this;

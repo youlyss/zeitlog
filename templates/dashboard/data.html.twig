@@ -10,23 +10,23 @@
         <div class="col-md-12 center"> <h1>{{ title }}</h1></div>
     </div>
     <div class="row center">
-        <div class="col-md-2"><h4>Username</h4></div>
+        <div class="col-md-4"><h4>Username</h4></div>
         <div class="col-md-2"><h4>start</h4></div>
         <div class="col-md-2"><h4>End</h4></div>
-        <div class="col-md-3"><h4>Edit</h4></div>
-        <div class="col-md-3"><h4>Delete</h4></div>
+        <div class="col-md-2"><h4>Edit</h4></div>
+        <div class="col-md-2"><h4>Delete</h4></div>
     </div>
     <hr>
 
     {% for worktime in worktimes %}
         <div class="row">
 
-            <div class="col-md-2"><a href="{{ path('app_edit_user', { id :worktime.id })}}">{{worktime.email}} </a></div>
+            <div class="col-md-4"><a href="{{ path('app_edit_user', { id :worktime.id })}}">{{worktime.email}} </a></div>
             <div class="col-md-2">{{worktime.0.startTime|date("Y-m-d h:i:s") }} </div>
             <div class="col-md-2">{{ worktime.0.endTime|date("Y-m-d h:i:s") }}</div>
 
-            <div class="col-md-3 center"><a class="btn btn-outline-success btn-sm" href="{{ path('app_edit_time', { id :worktime.0.id })}}">edit</a></div>
-            <div class="col-md-3 center"><a class="btn btn-outline-danger btn-sm" href="{{ path('app_delete_time', { id :worktime.0.id })}}">delete</a></div>
+            <div class="col-md-2 center"><a class="btn btn-outline-success btn-sm" href="{{ path('app_edit_time', { id :worktime.0.id })}}">edit</a></div>
+            <div class="col-md-2 center"><a class="btn btn-outline-danger btn-sm" href="{{ path('app_delete_time', { id :worktime.0.id })}}">delete</a></div>
         </div>
     {% endfor %}
 
