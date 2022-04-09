@@ -7,10 +7,12 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-md-12 center"> <h1>{{ title }}</h1></div>
+                <div class="col-md-9 center"> <h1>{{ title }}</h1></div>
+                <div class="col-md-3"><a class="btn btn-outline-primary" href="{{ path('app_working_time')}}">back</a> </div>
             </div>
-            <div class="row center">
-                <div class="col-md-4"><h4>Username</h4></div>
+            <div class="row">
+                <div class="col-md-2"><h4>Project</h4></div>
+                <div class="col-md-2"><h4>Username</h4></div>
                 <div class="col-md-2"><h4>start</h4></div>
                 <div class="col-md-2"><h4>End</h4></div>
                 <div class="col-md-4"><h4>Arbeitzeit</h4></div>
@@ -19,7 +21,8 @@
 
             {% for worktime in worktimes %}
                 <div class="row">
-                    <div class="col-md-4">{{worktime.email }}</div>
+                    <div class="col-md-2">{{worktime.name }}</div>
+                    <div class="col-md-2">{{worktime.email }}</div>
                     <div class="col-md-2">{{worktime.startTime|date("Y-m-d h:i:s") }} </div>
                     <div class="col-md-2">{{ worktime.endTime|date("Y-m-d h:i:s") }}</div>
                     {% set difference = date(worktime.endTime).diff(date(worktime.startTime)) %}
@@ -43,8 +46,8 @@
             </div>
             <hr>
             <div class="row center">
-                <div class="col-md-6"><a class="btn btn-outline-primary" href="{{ path('app_working_time')}}">back</a> </div>
-                <div class="col-md-6"><a class="btn btn-outline-success" href="{{ path('app_export')}}">export</a> </div>
+
+                <div class="col-md-12"><a class="btn btn-outline-success" href="{{ path('app_export')}}">export</a> </div>
             </div>
 
 

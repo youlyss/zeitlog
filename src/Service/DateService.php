@@ -14,7 +14,7 @@ class DateService
 
  public function calculateWorktimes($id)
  {
-        $worktimes = $this->worktimeRepository->findWorktimesByUser($id);
+        $worktimes = $this->worktimeRepository->findByWorktimesByUser($id);
         $date = new \DateTime();
         $dateNow = new \DateTime();
 
@@ -25,4 +25,17 @@ class DateService
         return $date->diff($dateNow);
 
  }
+    public function calculateWorktimesByProject($id)
+    {
+        $worktimes = $this->worktimeRepository->findByWorktimesByProject($id);
+        $date = new \DateTime();
+        $dateNow = new \DateTime();
+
+        foreach($worktimes as $worktime) {
+            $interval = $worktime['endTime']->diff($worktime['startTime']);
+            $date->add($interval);
+        }
+        return $date->diff($dateNow);
+
+    }
 }

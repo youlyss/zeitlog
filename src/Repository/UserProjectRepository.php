@@ -44,33 +44,18 @@ class UserProjectRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
-    // /**
-    //  * @return UserProject[] Returns an array of UserProject objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllProjectsUsersWorktimes()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+        $query = $this->createQueryBuilder('up')
+            ->select('user.email,user.id as userId, wk.id as workId, pr.id as projectId, pr.name, wk.startTime, wk.endTime')
+            ->innerJoin('App\Entity\Project', 'pr','WITH','pr.id = up.project')
+            ->innerJoin( 'App\Entity\User', 'user', 'WITH', 'user.id = up.user')
+            ->innerJoin('App\Entity\Worktime', 'wk','WITH','user.id = wk.user')
             ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+            ->getResult();
 
-    /*
-    public function findOneBySomeField($value): ?UserProject
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $query;
     }
-    */
+
+
 }

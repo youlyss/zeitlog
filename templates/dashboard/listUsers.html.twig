@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12 center"> <h1>{{ title }}</h1></div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-12"><h4>Username</h4></div>
+
+            </div>
+            <hr>
+
+            {% for user in users %}
+                <div class="row">
+                    <div class="col-md-2">{{user.email }}</div>
+
+                </div>
+            {% endfor %}
+            <hr>
+            <div class="row center">
+                <div class="col-md-12"><a class="btn btn-outline-primary" href="{{ path('app_working_time')}}">back</a> </div>
+
+            </div>
+        </div>
+
+    </section>
+{% endblock %}

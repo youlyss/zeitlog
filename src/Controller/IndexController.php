@@ -70,10 +70,7 @@ class IndexController extends AbstractController
 
 
         return $this->redirectToRoute('app_dashboard');
-        /* return $this->render('index/edit.html.twig', [
-            'title' => 'Work',
-            'message' =>$message
-        ]);*/
+
 
 
     }

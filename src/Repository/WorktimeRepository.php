@@ -44,8 +44,6 @@ class WorktimeRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
-
     public function findAllUsersWorktimes()
     {
         $query = $this->createQueryBuilder('wk')
@@ -72,17 +70,36 @@ class WorktimeRepository extends ServiceEntityRepository
     }
 
 
-    public function findWorktimesByUser($id)
+    public function findByWorktimesByUser($id)
     {
         $query = $this->createQueryBuilder('wk')
-            ->select('wk.id, wk.startTime, wk.endTime, u.email')
-            ->innerJoin( 'App\Entity\User', 'u', 'WITH', 'wk.user = u.id')
-            ->where('u.id = :id')
+            ->select('wk.id, wk.startTime, wk.endTime, user.email, pr.name')
+            ->innerJoin('App\Entity\User', 'user', 'WITH', 'user.id = wk.user')
+            ->innerJoin('App\Entity\UserProject', 'up','WITH','up.user = user.id')
+            ->innerJoin( 'App\Entity\Project', 'pr', 'WITH', 'pr.id = up.project')
+            ->where('user.id = :id')
             ->setParameter('id',$id)
             ->getQuery()
             ->getResult();
 
         return $query;
     }
+
+    public function findByWorktimesByProject($id)
+    {
+        $query = $this->createQueryBuilder('wk')
+            ->select('wk.id, wk.startTime, wk.endTime, user.email, pr.name')
+            ->innerJoin('App\Entity\User', 'user', 'WITH', 'user.id = wk.user')
+            ->innerJoin('App\Entity\UserProject', 'up','WITH','up.user = user.id')
+            ->innerJoin( 'App\Entity\Project', 'pr', 'WITH', 'pr.id = up.project')
+            ->where('pr.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getResult();
+
+        return $query;
+    }
+
+
 
 }

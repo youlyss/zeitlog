@@ -11,10 +11,22 @@
     </div>
 
     <hr>
-    <div class="row">
-            <div class="col-md-6 center"><a class="btn btn-outline-success btn-sm" href="{{ path('app_working_time')}}">Working Times</a></div>
-            <div class="col-md-6 center"><a class="btn btn-outline-danger btn-sm" href="{{ path('app_project_list')}}">Projekte</a></div>
+
+    <div class="row center">
+        <div class="col-md-2 center"></div>
+        <div class="col-md-8 center">
+                <div class="col-10">
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="{{ path('app_working_time')}}" role="tab" aria-controls="home">Working Times</a>
+                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="{{ path('app_project_list')}}" role="tab" aria-controls="profile">Project</a>
+                        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="{{ path('app_list_users') }}" role="tab" aria-controls="messages">Users To Project</a>
+
+                    </div>
+                </div>
         </div>
+        <div class="col-md-2 center"></div>
+
+    </div>
 
 </div>
 

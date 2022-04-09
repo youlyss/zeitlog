@@ -1,4 +1,5 @@
 $("#timeForm").submit(function(e){
+
     e.preventDefault();
         var formData = {
             'start_time': $('#txtstart_time').val(),

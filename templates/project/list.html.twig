@@ -7,25 +7,32 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-md-12 center"> <h1>{{ title }}</h1></div>
+                <div class="col-md-8 center"> <h1>{{ title }}</h1></div>
+                <div class="col-md-2 right"><a class="btn btn-outline-success btn-sm" href="{{ path('app_project_form')}}">new Project</a></div>
+                <div class="col-md-2 right"><a class="btn btn-outline-primary btn-sm" href="{{ path('app_dashboard')}}">Back</a></div>
             </div>
+            <hr/>
             <div class="row">
-                <div class="col-md-6 center"><h3>Name</h3></div>
-                <div class="col-md-6 center"><h3>Description</h3></div>
+                <div class="col-md-3 center"><h3>Name</h3></div>
+                <div class="col-md-3 center"><h3>Description</h3></div>
+                <div class="col-md-3 center"><h3>Edit</h3></div>
+                <div class="col-md-3 center"><h3>Delete</h3></div>
             </div>
 
             <hr>
 
                 {% for project in projects %}
             <div class="row">
-                <div class="col-md-6 center"><a  href="">{{ project.name }}</a></div>
-                <div class="col-md-6 center">{{ project.description }}</div>
+                <div class="col-md-3 center"><a  href="">{{ project.name }}</a></div>
+                <div class="col-md-3 center">{{ project.description }}</div>
+                <div class="col-md-3 center"><a  class="btn btn-outline-primary "href="{{ path('app_project_edit', { id:project.id })}}">edit</a></div>
+                <div class="col-md-3 center"><a class="btn btn-outline-danger" href="{{ path('app_project_delete', { id:project.id })}}">delete</a></div>
             </div>
                 {% endfor %}
         <hr/>
             <div class="row">
-                <div class="col-md-6 center"><a class="btn btn-outline-success btn-sm" href="{{ path('app_working_time')}}">Working Times</a></div>
-                <div class="col-md-6 center"><a class="btn btn-outline-danger btn-sm" href="{{ path('app_project_form')}}">new Project</a></div>
+                <div class="col-md-12 right"><a class="btn btn-outline-success btn-sm" href="{{ path('app_working_time')}}">Working Times</a></div>
+
             </div>
 
         </div>
