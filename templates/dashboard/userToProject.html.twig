@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12 center"> <h1>{{ title }}</h1></div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-9"><h4>Username</h4></div>
+                <div class="col-md-3"><a class="btn btn-outline-primary" href="{{ path('app_working_time')}}">back</a> </div>
+            </div>
+            <hr>
+            <form name="assignForm" action="{{ path('app_assign_user_project') }}" method="post">
+                <div class="row">
+
+                    <div class="col-md-4">
+                            <select class="form-control" name="user_id">
+                                {% for user in users %}
+                                    <option value="{{user.id}}">{{user.email}}</option>
+                                {% endfor %}
+                          </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control" name="project_id">
+                            {% for project in projects %}
+                                <option value="{{project.id}}">{{project.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" value = "assign" class="btn btn-outline-success">
+                    </div>
+
+                </div>
+
+            </form>
+            <hr>
+
+        </div>
+
+    </section>
+{% endblock %}

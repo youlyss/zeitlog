@@ -54,13 +54,13 @@ class IndexController extends AbstractController
          $userId = $request->get('user_id');
          $worktimeId = $request->get('worktime_id');
 
-
-         $user = $this->userRepository->find($userId);
-         if ($worktimeId!= null) {
-             $worktime = $this->worktimeRepository->find($worktimeId);
-         }else {
-             $worktime = new Worktime();
-         }
+         if ($starttime!=null) {
+             $user = $this->userRepository->find($userId);
+             if ($worktimeId != null) {
+                 $worktime = $this->worktimeRepository->find($worktimeId);
+             } else {
+                 $worktime = new Worktime();
+             }
              $worktime
                  ->setStartTime(new DateTime($starttime))
                  ->setEndTime(new DateTime($endtime))
@@ -68,7 +68,7 @@ class IndexController extends AbstractController
              $this->manager->persist($worktime);
              $this->manager->flush();
 
-
+         }
         return $this->redirectToRoute('app_dashboard');
 
 

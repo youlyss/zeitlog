@@ -36,12 +36,11 @@ class UserProject
         return $this->project;
     }
 
-    /**
-     * @param mixed $project
-     */
-    public function setProject($project): void
+
+    public function setProject($project): self
     {
         $this->project = $project;
+        return $this;
     }
 
     /**
@@ -52,12 +51,10 @@ class UserProject
         return $this->user;
     }
 
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user): void
+    public function setUser($user): self
     {
         $this->user = $user;
+        return $this;
     }
 
 

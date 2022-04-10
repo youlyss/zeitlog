@@ -1,8 +1,9 @@
 $("#timeForm").submit(function(e){
 
     e.preventDefault();
-        var formData = {
-            'start_time': $('#txtstart_time').val(),
+    var start = $('#txtstart_time').val();
+    var formData = {
+            'start_time': start,
             'end_time':$('#txtend_time').val(),
             'user_id': $('#user_id').val(),
             'worktime_id': $('#worktime_id').val()
@@ -12,7 +13,11 @@ $("#timeForm").submit(function(e){
         url: "/savedata",
         data: formData,
         success: function(data){
-            $("#message").text("Vielen Dank");
+            if (!start) {
+                alert('required')
+            }else{
+                $("#message").text("Vielen Dank");
+            }
             $("#txtstart_time").val('');
             $('#txtend_time').val('');
 

@@ -1,5 +1,5 @@
 $("#start_time").click(function(){
-    event.preventDefault();
+     event.preventDefault();
     $("#txtstart_time").val(now())
 });
 
@@ -19,6 +19,7 @@ const now = () =>{
     var sec = now.getSeconds();
     return y + "-" + m + "-" + d +" "+ h + ":"+min+":"+sec
 }
+
 
 
 
