@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Project;
+
 use App\Entity\UserProject;
-use App\Form\ProjectFormType;
-use App\Form\UserProjectFormType;
+
 use App\Repository\ProjectRepository;
 use App\Repository\UserProjectRepository;
 use App\Repository\UserRepository;
@@ -67,7 +66,7 @@ class DashboardController extends AbstractController
     public function update($id):Response
     {
         $worktime = $this->worktimeRepository->findUserWorktime($id);
-        return $this->render('index/edit.html.twig',['title'=>'Edit a worktime', 'worktime'=>$worktime]);
+        return $this->render('dashboard/edit.html.twig',['title'=>'Edit a worktime', 'worktime'=>$worktime]);
     }
 
     /**
@@ -87,7 +86,8 @@ class DashboardController extends AbstractController
     {
         $worktimes = $this->worktimeRepository->findByWorktimesByUser($id);
         $total = $this->dateService->calculateWorktimes($id);
-        return $this->render('dashboard/userTimes.html.twig',['title'=>'Daten eines Users', 'worktimes'=>$worktimes, 'total'=>$total]);
+        $page='user';
+        return $this->render('dashboard/userTimes.html.twig',['title'=>'Daten eines Users', 'worktimes'=>$worktimes, 'total'=>$total, 'id'=>$id, 'page'=>$page]);
     }
     /**
     * @Route("/dashboard/filter/project/{id}", name="app_filter_project", methods={"GET"})
@@ -96,17 +96,35 @@ class DashboardController extends AbstractController
     {
         $worktimes = $this->worktimeRepository->findByWorktimesByProject($id);
         $total = $this->dateService->calculateWorktimesByProject($id);
-        return $this->render('dashboard/userTimes.html.twig',['title'=>'Daten eines Users', 'worktimes'=>$worktimes, 'total'=>$total]);
+        $page = "project";
+        return $this->render('dashboard/userTimes.html.twig',['title'=>'Daten eines Users', 'worktimes'=>$worktimes, 'total'=>$total, 'id'=>$id, 'page'=>$page]);
     }
 
 
+    /**
+     * @Route("/export/project/{id}", name="app_export_project")
+     */
+    public function exportProjectData($id):Response
+    {
+        $worktimes = $this->worktimeRepository->findByWorktimesByProject($id);
+        return $this->fileService->createCsvFile($worktimes);
+    }
+
+    /**
+     * @Route("/export/user/{id}", name="app_export_user")
+     */
+    public function exportUserData($id):Response
+    {
+        $worktimes = $this->worktimeRepository->findByWorktimesByUser($id);
+        return $this->fileService->createCsvFile($worktimes);
+    }
 
     /**
      * @Route("/export", name="app_export")
      */
     public function export():Response
     {
-        $worktimes = $this->worktimeRepository->findAllUsersWorktimes();
+        $worktimes = $this->userProjectRepository->findAllProjectsUsersWorktimes();
         return $this->fileService->createCsvFile($worktimes);
     }
 

@@ -8,13 +8,14 @@ $("#timeForm").submit(function(e){
             'user_id': $('#user_id').val(),
             'worktime_id': $('#worktime_id').val()
         };
+    console.log(formData);
         $.ajax({
         type: "POST",
         url: "/savedata",
         data: formData,
         success: function(data){
             if (!start) {
-                alert('required')
+                alert('StartTime required')
             }else{
                 $("#message").text("Vielen Dank");
             }

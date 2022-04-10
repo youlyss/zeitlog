@@ -1,4 +1,5 @@
 <?php
+/*
 $hours_to_add = 2;
 
 $time = new DateTime();
@@ -8,5 +9,21 @@ $time->add(new DateInterval('PT' . $hours_to_add . 'H'));
 
 $stamp = $time->format('Y-m-d H:i:s');
 
+
 echo $stamp;
 echo "\n";
+
+*/
+
+$hours_to_add = 2;
+
+$time = new DateTime(now());
+$stamp = $time->format('Y-m-d H:i:s');
+
+
+
+
+
+echo $stamp;
+echo "\n";
+

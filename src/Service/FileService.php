@@ -12,7 +12,7 @@ class FileService
         $fp = fopen('php://output', 'w');
 
         foreach ($list as $fields) {
-            $line = $fields[0]->getStartTime()->format('Y-m-d H:i:s').",".$fields[0]->getEndTime()->format('Y-m-d H:i:s').",".$fields['email'];
+            $line = $fields["name"].",".$fields['email'].",".$fields['startTime']->format('Y-m-d H:i:s').",".$fields['endTime']->format('Y-m-d H:i:s');
             $linesArray = explode(",", $line);
             fputcsv($fp, $linesArray);
         }

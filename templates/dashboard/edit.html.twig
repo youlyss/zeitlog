@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{{ title }}</h1>
+                </div>
+                <div class="col-md-6 right"><a class="btn btn-outline-primary" href="{{ path('app_working_time')}}">back</a> </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12 center">
+                    <input type="hidden" id="user_id" name="user_id" class="form-control" value={{ worktime.userId }}  />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 center">
+                    <input type="hidden" id="worktime_id" name="worktime_id" class="form-control" value={{ worktime.id }}  />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <span>{{worktime.email}}</span>
+                </div>
+            </div>
+            <hr/>
+            <form id="timeForm" name="timeForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-default width_button" id="start_time">Start</button>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="txtstart_time" class="form-control" value="{{worktime.startTime|date("Y-m-d h:i:s") }}" />
+                    </div>
+                </div>
+
+                <div class="row rowMargin">
+                    <div class="col-md-6">
+                        <button class="btn btn-default"  id="end_time">End</button>
+                    </div>
+                    <div class="col-md-6">
+                        {% if worktime.endTime == null %}
+                            <input type="text" id="txtend_time" class="form-control" value=""/>
+                        {% else %}
+                            <input type="text" id="txtend_time" class="form-control" value="{{ worktime.endTime|date("Y-m-d h:i:s") }}"/>
+                        {% endif  %}
+
+
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="col-md-12 width_button">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 align">
+                        <div class="message" id="message"></div>
+                    </div>
+                </div>
+
+            </form>
+            <hr/>
+
+        </div>
+
+    </section>
+{% endblock %}

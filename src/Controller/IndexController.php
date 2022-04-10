@@ -3,21 +3,19 @@
 namespace App\Controller;
 
 
-use App\Entity\User;
+
 use App\Entity\Worktime;
-use App\Form\WorktimeType;
 use App\Repository\UserRepository;
 use App\Repository\WorktimeRepository;
-use App\Service\FormHandler;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 
 class IndexController extends AbstractController
 {
@@ -35,11 +33,15 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="add_time")
      */
-    public function form():Response
+    public function form(RequestStack $request):Response
     {
         if ($this->getUser()) {
-            $message = "Gib den Start ein";
-            return $this->render('index/form.html.twig',['title'=>'Worktime',  'message' =>$message,]);
+            $id = $this->getUser()->getId();
+            $worktime = $this->worktimeRepository->findBylastUserWorktime($id);
+            if ($worktime!=null){
+                return $this->render('index/edit.html.twig',['title'=>'Worktime', 'worktime' => $worktime]);
+            }
+            return $this->render('index/form.html.twig',['title'=>'Worktime']);
         }
         return $this->redirectToRoute('app_login');
     }
@@ -61,10 +63,11 @@ class IndexController extends AbstractController
              } else {
                  $worktime = new Worktime();
              }
-             $worktime
-                 ->setStartTime(new DateTime($starttime))
-                 ->setEndTime(new DateTime($endtime))
-                 ->setUser($user);
+             $worktime->setStartTime(new DateTime($starttime));
+             if ($endtime!=null){
+                 $worktime->setEndTime(new DateTime($endtime));
+             }
+             $worktime->setUser($user);
              $this->manager->persist($worktime);
              $this->manager->flush();
 

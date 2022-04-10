@@ -4,64 +4,75 @@
 
 {% block body %}
     <section>
-        <div class="container">
+    <div class="container">
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12 center">
+                <h1>{{ title }}</h1>
+            </div>
+        </div>
+
+
+        <form id="timeForm" name="timeForm">
             <div class="row">
-                <div class="col-md-6">
-                    <h1>{{ title }}</h1>
+                <div class="col-md-12 center">
+                    <input type="hidden" id="user_id" name="user_id" class="form-control" value={{ app.user.id }}  />
                 </div>
-                <div class="col-md-6 right"><a class="btn btn-outline-primary" href="{{ path('app_working_time')}}">back</a> </div>
 
             </div>
             <div class="row">
                 <div class="col-md-12 center">
-                    <input type="hidden" id="user_id" name="user_id" class="form-control" value={{ worktime.id }}  />
+                    <input type="hidden" id="worktime_id" name="worktime_id" class="form-control" value={{ worktime.id }}  />
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 center">
-                    <input type="hidden" id="worktime_id" name="worktime_id" class="form-control" value={{ worktime.0.id }}  />
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col-md-12">
-                    <span>{{worktime.email}}</span>
+                    <span>{{ app.user.username }}</span>
                 </div>
             </div>
             <hr/>
-            <form id="timeForm" name="timeForm">
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-default width_button" id="start_time">Start</button>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" id="txtstart_time" class="form-control" value="{{worktime.0.startTime|date("Y-m-d h:i:s") }}" />
-                    </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Druck Start</p>
                 </div>
+                <div class="col-md-3">
+                    <button class="btn btn-default width_button" id="start_time">Start</button>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="txtstart_time" value="{{worktime.startTime|date("Y-m-d h:i:s") }}" class="form-control"  disabled/>
+                </div>
+            </div>
 
-                <div class="row rowMargin">
-                    <div class="col-md-6">
+
+            <div class="row rowMargin">
+                    <div class="col-md-3">
+                        <p>Druck End</p>
+                    </div>
+                    <div class="col-md-3">
                         <button class="btn btn-default"  id="end_time">End</button>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" id="txtend_time" class="form-control" value="{{ worktime.0.endTime|date("Y-m-d h:i:s") }}"/>
+                        <input type="text" id="txtend_time" class="form-control" disabled/>
                     </div>
-                </div>
-                <div class="row center">
-                    <div class="col-md-12 width_button">
-                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
+            <div class="row center">
+                <div class="col-md-12 width_button">
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 align">
-                        <div class="message" id="message"></div>
-                    </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12 center">
+                    <div class="message" id="message"></div>
                 </div>
+            </div>
 
-            </form>
-            <hr/>
+        </form>
 
-        </div>
-
+    </div>
     </section>
 {% endblock %}
