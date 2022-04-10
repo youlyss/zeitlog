@@ -53,10 +53,14 @@ class DashboardController extends AbstractController
      */
     public function manageWorktime(): Response
     {
-
         $worktimes = $this->userProjectRepository->findAllProjectsUsersWorktimes();
+        $users = $this->worktimeRepository->findByUserWithoutEndWorktime();
+        foreach ($users as $user)
+        {
+            $usersWTEndTime[]=$user['email'];
+        }
         return $this->render('dashboard/data.html.twig', [
-            'worktimes'=>$worktimes, 'title'=> 'Working Times - Users'
+            'worktimes'=>$worktimes, 'title'=> 'Working Times - Users', 'usersWithoutEndTime' => $usersWTEndTime
         ]);
     }
 

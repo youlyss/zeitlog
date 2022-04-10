@@ -24,8 +24,18 @@
 
     {% for worktime in worktimes %}
         <div class="row">
-            <div class="col-md-2"><a href="{{ path('app_filter_project', { id :worktime.projectId })}}">{{worktime.name}} </a></div>
-            <div class="col-md-3"><a href="{{ path('app_filter_user', { id :worktime.userId })}}">{{worktime.email}} </a></div>
+
+            {% if worktime.email in usersWithoutEndTime %}
+
+                <div class="col-md-2">{{worktime.name}}</div>
+                <div class="col-md-3">{{worktime.email}}</div>
+            {% else %}
+                <div class="col-md-2"><a href="{{ path('app_filter_project', { id :worktime.projectId })}}">{{worktime.name}} </a></div>
+                <div class="col-md-3"><a href="{{ path('app_filter_user', { id :worktime.userId })}}">{{worktime.email}} </a></div>
+
+            {% endif %}
+
+
             <div class="col-md-2">{{worktime.startTime|date("Y-m-d h:i:s") }} </div>
             {% if worktime.endTime == null %}
                 <div class="col-md-2"><p class="text-danger">Noch nicht gestampelt</p></div>

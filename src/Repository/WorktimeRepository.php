@@ -112,9 +112,18 @@ class WorktimeRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
 
         return $query;
+    }
 
+    public function findByUserWithoutEndWorktime()
+    {
+        $query = $this->createQueryBuilder('wk')
+            ->select('user.email')
+            ->innerJoin('App\Entity\User', 'user', 'WITH', 'user.id = wk.user')
+            ->where('wk.endTime is null')
+            ->getQuery()
+            ->getResult();
 
-
+        return $query;
     }
 
 
