@@ -47,10 +47,11 @@ class UserProjectRepository extends ServiceEntityRepository
     public function findAllProjectsUsersWorktimes()
     {
         $query = $this->createQueryBuilder('up')
-            ->select('user.email,user.id as userId, wk.id as workId, pr.id as projectId, pr.name, wk.startTime, wk.endTime')
+            ->select('up.id, user.email,user.id as userId, wk.id as workId, pr.id as projectId, pr.name, wk.startTime, wk.endTime')
             ->innerJoin('App\Entity\Project', 'pr','WITH','pr.id = up.project')
             ->innerJoin( 'App\Entity\User', 'user', 'WITH', 'user.id = up.user')
             ->innerJoin('App\Entity\Worktime', 'wk','WITH','user.id = wk.user')
+            ->groupBy('up.id')
             ->getQuery()
             ->getResult();
 
