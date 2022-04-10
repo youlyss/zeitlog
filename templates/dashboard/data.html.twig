@@ -52,7 +52,11 @@
         <div class="col-md-12">**Filtern nur auf beendete Zeiten</div>
     </div>
     <div class="row">
-        <div class="col-md-12"><a class="btn btn-outline-success" href="{{ path('app_export')}}">export</a> </div>
+        {% if usersWithoutEndTime|length > 0 %}
+        <div class="col-md-12"><p class="text-danger">**Export möglich wenn alle Zeiten beendet sind</p> </div>
+            {% else %}
+                <div class="col-md-12"><a class="btn btn-outline-success" href="{{ path('app_export')}}">export</a> </div>
+        {% endif %}
     </div>
 
 

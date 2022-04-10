@@ -55,12 +55,13 @@ class DashboardController extends AbstractController
     {
         $worktimes = $this->userProjectRepository->findAllProjectsUsersWorktimes();
         $users = $this->worktimeRepository->findByUserWithoutEndWorktime();
+        $usersWTEndTime=[];
         foreach ($users as $user)
         {
             $usersWTEndTime[]=$user['email'];
         }
         return $this->render('dashboard/data.html.twig', [
-            'worktimes'=>$worktimes, 'title'=> 'Working Times - Users', 'usersWithoutEndTime' => $usersWTEndTime
+            'worktimes'=>$worktimes, 'title'=> 'Users - Working Times', 'usersWithoutEndTime' => $usersWTEndTime
         ]);
     }
 
