@@ -68,7 +68,7 @@ class DashboardController extends AbstractController
     /**
      * @Route("/dashboard/edit/{id}", name="app_edit_time", methods={"GET"})
      */
-    public function update($id):Response
+    public function update($id): Response
     {
         $worktime = $this->worktimeRepository->findUserWorktime($id);
         return $this->render('dashboard/edit.html.twig',['title'=>'Edit a worktime', 'worktime'=>$worktime]);
@@ -77,7 +77,7 @@ class DashboardController extends AbstractController
     /**
      * @Route("/dashboard/delete/{id}", name="app_delete_time", methods={"GET"})
      */
-    public function delete($id):Response
+    public function delete($id): Response
     {
         $worktime = $this->worktimeRepository->find($id);
         $this->worktimeRepository->remove($worktime);
